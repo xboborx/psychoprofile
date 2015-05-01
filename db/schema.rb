@@ -11,10 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150501155658) do
+ActiveRecord::Schema.define(version: 20150501170603) do
+
+  create_table "categories", force: :cascade do |t|
+    t.string  "name"
+    t.integer "group_id"
+  end
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
+  end
+
+  create_table "questions", force: :cascade do |t|
+    t.string  "title"
+    t.string  "image"
+    t.string  "function"
+    t.boolean "no_answer"
+    t.integer "category_id"
   end
 
 end
