@@ -1,40 +1,53 @@
-<div class="container">
-  <div class="col-lg-4">
-    <h2>Welcome#index</h2>
-    <p>Find me in app/views/welcome/index.html.erb</p>
-    </div>
+<div class="container" xmlns="http://www.w3.org/1999/html">
 
-  <div class="camera">
-    <video id="video">Video stream not available.</video>
-    <button id="btnFullFace">Take FullFace</button>
-    <button id="btnProfile">Take Profile</button>
+  <div class ="jumbotron">
+    <h1>Hello, world!</h1>
+    <p> Мир должен быть таким, каким он должен быть.<p>
   </div>
+
+  <video id="video" class="center-block">Video stream not available.</video>
 
   <canvas id="canvasFullFace"></canvas>
   <canvas id="canvasProfile"></canvas>
 
-  <div class="outputFullFace">
-    <img id="photoFullFace" alt="The screen capture will appear in this box.">
+  <div class="row">
+      <div class="col-lg-6 text-center">
+        <p><button id="btnFullFace" class="btn btn-default">Take FullFace</button></p>
+        <p><img id="photoFullFace" class="img-responsive img-center" alt="The screen capture will appear in this box."></p>
+      </div>
+
+      <div class="col-lg-6 text-center">
+        <p><button id="btnProfile" class="btn btn-default">Take Profile</button></p>
+        <p><img id="photoProfile" class="img-responsive img-center" alt="The screen capture will appear in this box."></p>
+      </div>
   </div>
 
-  <div class="outputProfile">
-    <img id="photoProfile" alt="The screen capture will appear in this box.">
-  </div>
 
 
-  <%  @groups.each do |g| %>
-      <h2><%= g.name %></h2>
-      <% g.categories.each do |c| %>
-          <h3><%= c.name %></h3>
-          <% c.questions.each do |q| %>
-              <p>
-                <h4><%= q.title %></h4>
-                <%= image_tag(q.image,  height: '240', width: '320') %>
-                <%= range_field :Question1, :in => 0..-100, :step => '.1' %>
-              </p>
+
+
+  <%= form_for(:foo) do |f| %>
+      <%= f.hidden_field :hiddenFFPhoto %>
+      <%= f.hidden_field :hiddenPPhoto %>
+      <%  @groups.each do |g| %>
+          <h2><%= g.name %></h2>
+          <% g.categories.each do |c| %>
+              <div class="row">
+                  <h3><%= c.name %></h3>
+                  <% c.questions.each do |q| %>
+                        <div class="col-lg-3">
+                          <div class="radio">
+                            <label><%= radio_button_tag(:age, "child") %><%= q.title %> </label>
+                          </div>
+
+                            <%= image_tag(q.image, :class => "img-responsive img-center") %>
+                            <%= f.range_field :Question1, :in => 0..-100, :step => '.1' %>
+                      </div>
+                  <% end %>
+              </div>
           <% end %>
-      <% end %>
-  <% end  %>
-
+      <% end  %>
+      <%= submit_tag("Post") %>
+  <% end %>
 
 </div>

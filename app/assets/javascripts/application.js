@@ -10,6 +10,7 @@
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 //= require jquery
 //= require bootstrap-sprockets
 //= require jquery_ujs
@@ -22,7 +23,7 @@
     // width to the value defined here, but the height will be
     // calculated based on the aspect ratio of the input stream.
 
-    var width = 320;    // We will scale the photo width to this
+    var width = 640;    // We will scale the photo width to this
     var height = 0;     // This will be computed based on the input stream
 
     // |streaming| indicates whether or not we're currently streaming
@@ -46,6 +47,8 @@
     var startbutton = null;
     var btnFullFace = null;
     var btnProfile = null;
+    var hiddenFFPhoto = null;
+    var hiddenPPhoto = null;
 
     function startup() {
         video = document.getElementById('video');
@@ -55,6 +58,10 @@
         photoProfile = document.getElementById('photoProfile');
         btnFullFace = document.getElementById('btnFullFace');
         btnProfile = document.getElementById('btnProfile');
+        hiddenFFPhoto = document.getElementById('foo_hiddenFFPhoto');
+        hiddenPPhoto = document.getElementById('foo_hiddenPPhoto');
+        console.log("foo_hiddenFFPhoto: " + hiddenFFPhoto);
+        console.log("foo_btnFullFace: " + btnFullFace);
 
         navigator.getMedia = ( navigator.getUserMedia ||
         navigator.webkitGetUserMedia ||
@@ -103,23 +110,25 @@
 
         btnFullFace.addEventListener('click', function(ev){
             takepicture(canvasFullFace, photoFullFace);
+            hiddenFFPhoto.value = canvasFullFace.toDataURL('image/png');
             ev.preventDefault();
         }, false);
 
         btnProfile.addEventListener('click', function(ev){
             takepicture(canvasProfile, photoProfile);
+            hiddenPPhoto.value = canvasProfile.toDataURL('image/png');
             ev.preventDefault();
         }, false);
 
-        clearphoto(canvasFullFace);
-        clearphoto(canvasProfile);xbobox
+        clearphoto(canvasFullFace, photoFullFace);
+        clearphoto(canvasProfile, photoProfile);
 
     }
 
     // Fill the photo with an indication that none has been
     // captured.
 
-    function clearphoto(canvas) {
+    function clearphoto(canvas, photo) {
         var context = canvas.getContext('2d');
         context.fillStyle = "#AAA";
         context.fillRect(0, 0, canvas.width, canvas.height);
@@ -144,7 +153,7 @@
             var data = canvas.toDataURL('image/png');
             photo.setAttribute('src', data);
         } else {
-            clearphoto();
+            clearphoto(canvas, photo);
         }
     }
 
