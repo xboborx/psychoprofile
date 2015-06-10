@@ -1,4 +1,4 @@
-<div class="container" xmlns="http://www.w3.org/1999/html">
+<div class="container-md" xmlns="http://www.w3.org/1999/html">
 
   <div class ="jumbotron">
     <h1>Hello, world!</h1>
@@ -22,10 +22,43 @@
       </div>
   </div>
 
-
-
-
-
+  <!-- --------------------------------- -->
+    <!-- first iterator -->
+    <%  @groups.each do |g| %>
+      <h2><%= g.name %></h2>
+      <!-- second iterator -->
+          <% g.categories.each do |c| %>
+            <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title"><%= c.name %></h3>
+              </div>
+              <div class="panel-body">
+                <div class="row">
+                <!-- third iterator -->
+                <% c.questions.each do |q| %>
+                    <div class="col-lg-3">
+                      <div class="radio radio-primary">
+                        <label>
+                          <input type="radio" value="option1" name="sample1">
+                          <span class="circle"></span>
+                          <span class="check"></span>
+                          <%= q.title %>
+                        </label>
+                      </div>
+                      <img class="img-responsive img-center" src="http://www.nastol.com.ua/pic/201204/320x240/nastol.com.ua-20454.jpg">
+                      <div class="slider shor hid"></div>
+                      <div class="slider-value"></div>
+                    </div>
+                <% end %>
+                <!-- end third iterator -->
+                </div>
+              </div>
+            </div>
+      <% end %>
+      <!-- end second iterator -->
+    <% end %>
+    <!-- end first iterator -->
+  <!-- --------------------------------- -->
   <%= form_for(:foo) do |f| %>
       <%= f.hidden_field :hiddenFFPhoto %>
       <%= f.hidden_field :hiddenPPhoto %>

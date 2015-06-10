@@ -1,0 +1,15 @@
+.slider-value {
+    font: 400 12px Arial;
+    color: #888;
+    display: block;
+    margin: 15px 0;
+    display: none;
+}
+.slider-value:before {
+    content: "Value: ";
+    font: 700 12px Arial;
+}
+
+.slider.hid {
+    display: none;
+}

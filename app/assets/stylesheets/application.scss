@@ -11,8 +11,15 @@
  * file per style scope.
  *
  */
-@import "bootstrap-sprockets";
+/*@import "bootstrap-sprockets";
 @import "bootstrap";
+*/
+
+@import "bootstrap.min.css";
+@import "roboto.min.css";
+@import "material.min.css";
+@import "ripples.min.css";
+@import "custom-slider.css";
 
 #canvasFullFace { display: none; }
 #canvasProfile { display: none; }
